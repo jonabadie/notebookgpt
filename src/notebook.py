@@ -28,7 +28,7 @@ DEFAULT_FORMAT = {
  }
 
 class Notebook():
-    def __init__(self, filename="notebook.ipynb", kernel_name="notebook-gpt"):
+    def __init__(self, filename="notebook.ipynb", kernel_name="python3"):
         self.kernel_name = kernel_name
         self.filename = filename
         self.cells = []

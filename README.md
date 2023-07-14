@@ -14,9 +14,9 @@ OPENAI_API_KEY = "your-key"
 Create a conda environment named notebook-gpt and install dependencies:
 ```
 conda create -n notebook-gpt
+conda activate notebook-gpt
 pip install -r requirements.txt
 ```
-If the environment is named differently then you need to change the name of the kernel in the Notebook.py file
 
 ## Running
 
