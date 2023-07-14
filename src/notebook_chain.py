@@ -1,23 +1,25 @@
 import json
+import sys
 
 from notebook import Notebook
 from conversation import LlmConversation
 
 
 class NotebookChain():
-    def __init__(self):
+    def __init__(self, filename, steps=10):
         self.notebook = Notebook()
-        self.conversation = LlmConversation(model="gpt-4")
+        self.conversation = LlmConversation(model="gpt-3.5-turbo")
+        self.steps = steps
         self.available_functions = {
             "python": self.notebook.create_code
         }
         self.chain = [
             "You can execute Python code in a stateful Jupyter notebook environment. The code execution result will be provided, or a timeout will occur after 120.0 seconds."
-            "I've got a dataset with the path 'data/titanic_train.csv'."
-            "Perform exploratory data analysis."
+            f"I've got a dataset at path '{filename}'."
+            "Perform exploratory data analysis and model building."
             "Execute the first step then announce what the next step will be."
             "Explain what you do as you go in markdown format.",
-            "Continue the analysis."
+            "Continue the analysis and model building."
             "Explain what you do as you go in markdown format.",
         ]
 
@@ -36,7 +38,7 @@ class NotebookChain():
         self.conversation.add_message(execution_output, role="assistant")
 
     def run(self):
-        for i in range(10):
+        for i in range(self.steps):
             human_message = self.chain[0] if i == 0 else self.chain[1]
             response = self.conversation.openai_api_call(human_message)
             print(response)
@@ -50,8 +52,3 @@ class NotebookChain():
                 self._handle_function_call(function_call)
                 
             print(self.conversation.messages)
-
-
-if __name__ == "__main__":
-    notebook_chain = NotebookChain()
-    notebook_chain.run()
