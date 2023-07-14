@@ -14,13 +14,13 @@ class LlmConversation():
         self.functions=[
             {
                 "name": "python",
-                "description": "Write python code",
+                "description": "Use this to write python code",
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "code": {
                             "type": "string",
-                            "description": "The python code",
+                            "description": "The python code to execute in the notebook",
                         }
                     },
                     "required": ["code"],
