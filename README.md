@@ -21,5 +21,5 @@ pip install -r requirements.txt
 ## Running
 
 ```
-python src/notebook_chain.py
+python src/notebook_gpt.py file_name number_of_steps
 ```
