@@ -28,7 +28,8 @@ DEFAULT_FORMAT = {
  }
 
 class Notebook():
-    def __init__(self, filename="notebook.ipynb"):
+    def __init__(self, filename="notebook.ipynb", kernel_name="notebook-gpt"):
+        self.kernel_name = kernel_name
         self.filename = filename
         self.cells = []
 
@@ -68,7 +69,7 @@ class Notebook():
     def execute_notebook(self):
         with open(self.filename) as f:
             nb = nbformat.read(f, as_version=4)
-        ep = ExecutePreprocessor(timeout=600, kernel_name='dsr-b35')
+        ep = ExecutePreprocessor(timeout=600, kernel_name=self.kernel_name)
         ep.preprocess(nb, {'metadata': {'path': './'}})
         with open(self.filename, 'w', encoding='utf-8') as f:
             nbformat.write(nb, f)
